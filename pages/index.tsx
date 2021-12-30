@@ -1,28 +1,46 @@
-import type { NextPage } from "next";
-import { useQuery } from "react-query";
+import type { NextPage, GetStaticProps } from "next";
 
-interface Dog {
-  message: string;
-  status: string;
+export interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  description: string;
+  images: Array<string>;
 }
 
-const Home: NextPage = () => {
-  const { data, isLoading, error } = useQuery<Dog, Error>(
-    "dogs",
-    async function () {
-      return fetch("https://dog.ceo/api/breeds/image/random").then((r) =>
-        r.json()
-      );
-    }
-  );
-
-  if (error && !isLoading) return <div>some error occured</div>;
-
+const Home: NextPage<{ products: Array<Product> }> = ({ products }) => {
   return (
     <div className="mx-auto w-95 mt-24">
-      {isLoading ? "loading..." : <img src={data?.message} alt="" />}
+      {products.map((p) => (
+        <div className="flex items-center">
+          <h4>{p.name}</h4>
+          <span className="w-4"></span>
+          <button className="bg-red-300 px-4 py-2 rounded">buy</button>
+        </div>
+      ))}
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const products = await fetch("http://localhost:3000/api/products").then(
+      (r) => r.json()
+    );
+
+    return {
+      props: {
+        products,
+      },
+    };
+  } catch (e: any) {
+    return {
+      props: {
+        products: [],
+        error: e.message,
+      },
+    };
+  }
 };
 
 export default Home;

@@ -2,5 +2,5 @@
 - [x] add windicss
 - [x] add react-query
 - [x] design db
-- [ ] explore mongodb http api (to show products in ui)
+- [x] explore mongodb http api (to show products in ui)
 - [ ] learn and create some mongodb functions

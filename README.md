@@ -13,8 +13,6 @@ using nextjs and mongodb functions
       description,
       images,
       price,
-      created_at,
-      updated_at
     }
     ```
   - creating a products triggers nextjs build SSG
@@ -28,9 +26,8 @@ using nextjs and mongodb functions
     {
       _id,
       product,
-      created_at,
-      updated_at,
       status,
+      ordered_on
     }
     ```
   - creating an order triggers an email notification
