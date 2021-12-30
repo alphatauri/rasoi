@@ -1,5 +1,6 @@
 - [x] next js project bootstrap with ts
 - [x] add windicss
 - [x] add react-query
-- [ ] design db
+- [x] design db
+- [ ] explore mongodb http api (to show products in ui)
 - [ ] learn and create some mongodb functions
