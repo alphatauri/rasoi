@@ -1,4 +1,5 @@
 import type { NextPage, GetStaticProps } from "next";
+import { SERVER_URL } from "../config";
 
 export interface Product {
   _id: string;
@@ -24,8 +25,8 @@ const Home: NextPage<{ products: Array<Product> }> = ({ products }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const products = await fetch("http://localhost:3000/api/products").then(
-      (r) => r.json()
+    const products = await fetch(`${SERVER_URL}/api/products`).then((r) =>
+      r.json()
     );
 
     return {
