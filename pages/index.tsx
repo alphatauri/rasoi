@@ -1,10 +1,27 @@
 import type { NextPage } from "next";
+import { useQuery } from "react-query";
+
+interface Dog {
+  message: string;
+  status: string;
+}
 
 const Home: NextPage = () => {
+  const { data, isLoading, error } = useQuery<Dog, Error>(
+    "dogs",
+    async function () {
+      return fetch("https://dog.ceo/api/breeds/image/random").then((r) =>
+        r.json()
+      );
+    }
+  );
+
+  if (error && !isLoading) return <div>some error occured</div>;
+
   return (
-    <button className="px-4 py-2 bg-blue-400 text-white hover:bg-blue-500 rounded">
-      Test Btn
-    </button>
+    <div className="mx-auto w-95 mt-24">
+      {isLoading ? "loading..." : <img src={data?.message} alt="" />}
+    </div>
   );
 };
 
