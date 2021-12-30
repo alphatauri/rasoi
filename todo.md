@@ -1,5 +1,5 @@
-- [ ] next js project bootstrap with ts
-- [ ] add windicss
+- [x] next js project bootstrap with ts
+- [x] add windicss
 - [ ] add react-query
 - [ ] design db
 - [ ] learn and create some mongodb functions
