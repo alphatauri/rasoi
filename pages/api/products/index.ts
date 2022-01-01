@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Product } from "..";
+import { Product } from "../..";
 
 export interface ApiError {
   message: string;
