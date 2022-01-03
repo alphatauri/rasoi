@@ -18,7 +18,7 @@ const Home: NextPage<{ products: Array<Product> }> = ({ products }) => {
       <Header />
       <div className="grid md:(grid-cols-2 gap-x-4) gap-y-4 lg:(gap-y-0 grid-cols-3) justify-items-center mb-4">
         {products.map((p) => (
-          <Card product={p} />
+          <Card key={p._id} product={p} />
         ))}
       </div>
     </main>

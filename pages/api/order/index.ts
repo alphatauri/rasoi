@@ -46,7 +46,7 @@ export default async function handler(
 
     // save in order collection
 
-    await fetch(
+    fetch(
       `https://data.mongodb-api.com/app/${process.env.MONGO_DATA_APP}/endpoint/data/beta/action/insertOne`,
       {
         method: "POST",
@@ -66,7 +66,7 @@ export default async function handler(
           },
         }),
       }
-    ).then((r) => r.json());
+    );
 
     res.status(201).json({ ok: true, message: "order saved" });
   } else {
