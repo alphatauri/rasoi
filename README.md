@@ -43,4 +43,4 @@ that is rebuilt every time there is a change in products collection.
   }
   ```
   - creating an order triggers an email notification
-  - strip checkout on client
+  - stripe checkout on client
