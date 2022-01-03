@@ -1,5 +1,6 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { Header } from "../../components/Header";
+import { SERVER_URL } from "../../config";
 import { retrieveSession } from "../../utils/retrieveSession";
 
 const PaymentSucess: NextPage = () => {
@@ -50,6 +51,17 @@ export const getServerSideProps: GetServerSideProps = async (c) => {
       },
     };
   }
+
+  // save order
+  fetch(`${SERVER_URL}/api/order`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      sessionId,
+    }),
+  });
 
   return { props: {} };
 };

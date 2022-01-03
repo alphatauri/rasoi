@@ -17,7 +17,9 @@ export default async function handler(
       throw Error("Incorrect CheckoutSession ID.");
     }
     const checkout_session: Stripe.Checkout.Session =
-      await stripe.checkout.sessions.retrieve(id); 
+      await stripe.checkout.sessions.retrieve(id, {
+        expand: ["line_items"],
+      });
 
     res.status(200).json(checkout_session);
   } catch (e: any) {
