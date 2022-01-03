@@ -66,9 +66,16 @@ export default async function handler(
           },
         }),
       }
-    );
-
-    res.status(201).json({ ok: true, message: "order saved" });
+    )
+      .then((r) => r.json())
+      .then((_) => {
+        res.status(201).json({ ok: true, message: "order saved" });
+      })
+      .catch((e) => {
+        res
+          .status(201)
+          .json({ ok: false, message: e.message || "order not saved" });
+      });
   } else {
     res.setHeader("Allow", "POST");
     res.status(405).json({ message: "Method Not Allowed", ok: false });
