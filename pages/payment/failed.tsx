@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Link from "next/link";
 import { Header } from "../../components/Header";
 
 const PaymentSucess: NextPage = () => {
@@ -31,7 +32,7 @@ const PaymentSucess: NextPage = () => {
 
         <h2 className="text-3xl font-bold text-pink-600 mt-10 mb-2">Sorry!</h2>
         <p className="text-base text-gray-700">
-          We couldn't register your order due to some issue. Please try again.
+          We couldn't register your order due to some issue. Please go to <Link href="/"><a className="text-pink-600 underline">home</a></Link> and try again.
         </p>
       </div>
     </main>
