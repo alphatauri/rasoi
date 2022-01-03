@@ -1,6 +1,7 @@
 import type { NextPage, GetStaticProps } from "next";
+
 import { SERVER_URL } from "../config";
-import { getStripe } from "../utils/getStripe";
+import { Card } from "../components/Card";
 
 export interface Product {
   _id: string;
@@ -11,43 +12,19 @@ export interface Product {
 }
 
 const Home: NextPage<{ products: Array<Product> }> = ({ products }) => {
-  // creates strip session and redirects to the checkout page
-  const handlePurchase = async (p: Product) => {
-    const session = await fetch("/api/checkout_session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(p),
-    }).then((r) => r.json());
-
-    if (session.statusCode === 500) {
-      console.error(session.message);
-      return;
-    }
-
-    const stripe = await getStripe();
-    const { error } = await stripe!.redirectToCheckout({
-      sessionId: session.id,
-    });
-    console.warn(error.message);
-  };
-
   return (
-    <div className="mx-auto w-95 mt-24">
-      {products.map((p) => (
-        <div className="flex items-center">
-          <h4>{p.name}</h4>
-          <span className="w-4"></span>
-          <button
-            onClick={() => handlePurchase(p)}
-            className="bg-red-300 px-4 py-2 rounded"
-          >
-            buy
-          </button>
-        </div>
-      ))}
-    </div>
+    <main className="w-9/12 mx-auto max-w-1920px">
+      <header className="py-20">
+        <h1 className="text-center text-pink-600 text-9xl font-bold font-sacramento">
+          Rasoi
+        </h1>
+      </header>
+      <div className="grid md:(grid-cols-2 gap-x-4) gap-y-4 lg:(gap-y-0 grid-cols-3) justify-items-center mb-4">
+        {products.map((p) => (
+          <Card product={p} />
+        ))}
+      </div>
+    </main>
   );
 };
 

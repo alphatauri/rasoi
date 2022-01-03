@@ -4,6 +4,9 @@ const WindiCSSWebpackPlugin = require("windicss-webpack-plugin");
 
 module.exports = {
   reactStrictMode: true,
+  images: {
+    domains: ["images.pexels.com"],
+  },
   webpack(config) {
     config.plugins.push(new WindiCSSWebpackPlugin());
     return config;
