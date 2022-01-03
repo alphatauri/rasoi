@@ -1,5 +1,6 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { Header } from "../../components/Header";
+import { retrieveSession } from "../../utils/retrieveSession";
 
 const PaymentSucess: NextPage = () => {
   return (
@@ -29,6 +30,28 @@ const PaymentSucess: NextPage = () => {
       </div>
     </main>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (c) => {
+  const sessionId = c.query["session_id"] as string | undefined;
+
+  if (!sessionId) {
+    return {
+      redirect: { destination: "/payment/failed", permanent: true },
+    };
+  }
+  const session = await retrieveSession(sessionId!);
+
+  if (!(session.status === "complete" && session.payment_status === "paid")) {
+    return {
+      redirect: {
+        destination: `/payment/failed?session_id=${sessionId}`,
+        permanent: true,
+      },
+    };
+  }
+
+  return { props: {} };
 };
 
 export default PaymentSucess;
